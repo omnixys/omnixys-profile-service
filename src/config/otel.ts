@@ -23,12 +23,12 @@ const traceExporter = new OTLPTraceExporter({
 
 const prometheusExporter = new PrometheusExporter(
   {
-    port: 9464,
+    port: 9467,
     endpoint: '/metrics',
   },
   () => {
     console.log(
-      '✅ Prometheus exporter läuft auf http://localhost:9464/metrics',
+      '✅ Prometheus exporter läuft auf http://localhost:9467/metrics',
     );
   },
 );
