@@ -1,0 +1,49 @@
+name: ✨ Profil-Feature Request
+description: Vorschlag für ein neues Feature im Profil-Modul (z. B. Social-Links, Folgen, Feed)
+labels: [enhancement, profile]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke für deinen Vorschlag! Bitte fülle dieses Formular aus, um dein Feature bestmöglich zu beschreiben.
+
+  - type: input
+    id: title
+    attributes:
+      label: Feature-Titel
+      placeholder: z. B. "Social-Media-Links auf Profilseite hinzufügen"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Beschreibung
+      description: Beschreibe das Feature detailliert.
+      placeholder: |
+        - Icons für LinkedIn, Instagram, Twitter, Facebook
+        - Anzeige nur, wenn der Nutzer Links hinterlegt hat
+        - Responsive Design
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation & Mehrwert
+      description: Warum ist dieses Feature wichtig?
+      placeholder: |
+        - Erhöht die Vernetzung zwischen Nutzern
+        - Macht Profile attraktiver für Unternehmen und Social Branding
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: Auswirkungen
+      options:
+        - label: Ändert GraphQL-Schema (z. B. neue Felder)
+        - label: Erfordert neue Tests
+        - label: Betrifft mehrere Microservices
+        - label: UI-Update erforderlich

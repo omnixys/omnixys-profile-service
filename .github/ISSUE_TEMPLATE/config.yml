@@ -1,0 +1,26 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Omnixys Community Support
+    url: https://github.com/omnixys/omnixys-discussions/discussions
+    about: Stelle allgemeine Fragen oder tausche dich mit anderen aus.
+
+issue_templates:
+  - name: ✨ Profil-Feature Request
+    description: Vorschlag für ein neues Feature im Profilmodul
+    file: profile_feature_request.yml
+    labels: ["enhancement", "profile"]
+
+  - name: 🐛 Profil-Bug Report
+    description: Melde einen Fehler im Profilmodul
+    file: profile_bug_report.yml
+    labels: ["bug", "needs-triage", "profile"]
+
+  - name: 🔐 Security Vulnerability
+    description: Vertrauliche Meldung einer Sicherheitslücke
+    file: security_vulnerability.yml
+    labels: ["security", "confidential"]
+
+  - name: 🙋 Support-Anfrage
+    description: Bitte um Hilfe oder Klärung zu Setup, Nutzung oder Konfiguration
+    file: profile_support_request.yml
+    labels: ["question", "support", "profile"]

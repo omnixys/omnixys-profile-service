@@ -1,12 +1,12 @@
 name: 🙋 Support-Anfrage
-description: Bitte um Hilfe oder Klärung zu Setup, Nutzung oder Konfiguration
-labels: [question, support]
+description: Bitte um Hilfe oder Klärung zu Setup, Nutzung oder Konfiguration im Profilmodul
+labels: [question, support, profile]
 body:
   - type: input
     id: context
     attributes:
       label: Betroffener Bereich
-      placeholder: z. B. "lokales Setup mit Docker", "Keycloak Login", ...
+      placeholder: z. B. "GraphQL-Query getProfile", "Profil-Update", "Docker Setup"
     validations:
       required: true
 
@@ -14,10 +14,10 @@ body:
     id: problem
     attributes:
       label: Beschreibung des Problems
-      description: Was funktioniert nicht? Was erwartest du?
+      description: Beschreibe, was nicht funktioniert und was du erwartest.
       placeholder: |
-        - Ich habe `docker-compose up` ausgeführt, aber ...
-        - Login schlägt fehl trotz gültigem Token
+        - Ich habe `npm run start:dev` ausgeführt, aber Profil-Query gibt Fehler zurück
+        - UI zeigt keine Social-Links an, obwohl diese im Backend gesetzt sind
     validations:
       required: true
 
@@ -26,6 +26,7 @@ body:
     attributes:
       label: Relevante Fehlermeldungen oder Logs
       render: shell
+      description: Kopiere relevante Logs oder Stacktraces hier rein (ohne sensible Daten).
     validations:
       required: false
 
@@ -38,4 +39,4 @@ body:
         - GitHub Actions
         - Kubernetes (Staging)
         - Kubernetes (Prod)
-        - Anderes
+        - Andere
