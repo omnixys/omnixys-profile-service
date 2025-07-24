@@ -1,0 +1,98 @@
+name: ✅ Task
+description: Eine kleinere Aufgabe oder technische Anpassung
+labels: [task]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bitte beschreibe die Aufgabe so konkret wie möglich. Ein Task ist typischerweise eine kleinere Arbeitseinheit im Gegensatz zu einem Feature.
+
+  - type: input
+    id: title
+    attributes:
+      label: Kurze Zusammenfassung
+      placeholder: z. B. "UI-Anpassung für Profil-Banner" oder "Refactor Profile-Service Logging"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Beschreibung
+      description: Was soll konkret getan werden?
+      placeholder: |
+        - Entferne Inline-Styles und nutze Theme
+        - Passe Button-Label in Profil-Seite an
+    validations:
+      required: true
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: 🎯 Ziel
+      description: Was soll mit dieser Aufgabe erreicht werden?
+      placeholder: |
+        Einrichten eines automatisierten Build- und Push-Workflows für omnixys-account.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Bereiche
+      options:
+        - label: Frontend
+        - label: Backend
+        - label: Tests
+        - label: Konfiguration
+        - label: Dokumentation
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: ✅ Aufgaben & Schritte
+      description: Liste die erforderlichen Schritte für die Umsetzung.
+      placeholder: |
+        - Workflow-Datei unter `.github/workflows/deploy-account-service.yml` erstellen
+        - Schritte:
+            - Checkout
+            - Login zu ghcr.io
+            - Docker Build & Tag
+            - Docker Push nach ghcr.io/omnixys/account:latest
+    validations:
+      required: true
+
+  - type: textarea
+    id: config
+    attributes:
+      label: 🔧 Konfiguration
+      description: Parameter oder wichtige Einstellungen.
+      placeholder: |
+        - Image Repo: ghcr.io/omnixys/account:latest
+        - Registry Login: GITHUB_TOKEN
+        - Branch: main
+    validations:
+      required: false
+
+  - type: textarea
+    id: criteria
+    attributes:
+      label: 🔍 Erfolgskriterien
+      description: Wann gilt der Task als erledigt?
+      placeholder: |
+        - Workflow wird bei Änderungen korrekt ausgelöst
+        - Image wird erfolgreich gebaut und in GHCR gepusht
+        - Keine Secrets hardcoded
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priorität
+      options:
+        - Hoch
+        - Mittel
+        - Niedrig
+    validations:
+      required: true
