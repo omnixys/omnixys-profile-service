@@ -47,3 +47,5 @@ body:
         - label: Erfordert neue Tests
         - label: Betrifft mehrere Microservices
         - label: UI-Update erforderlich
+        - label: Dokumentation erforderlich
+        - label: Datenbank-Update notwendig
