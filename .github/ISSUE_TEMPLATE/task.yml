@@ -1,38 +1,23 @@
 name: ✅ Task
-description: Eine kleinere Aufgabe oder technische Anpassung
+description: Eine kleine, klar definierte Aufgabe
 labels: [task]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Bitte beschreibe die Aufgabe so konkret wie möglich. Ein Task ist typischerweise eine kleinere Arbeitseinheit im Gegensatz zu einem Feature.
-
   - type: input
     id: title
     attributes:
       label: Kurze Zusammenfassung
-      placeholder: z. B. "UI-Anpassung für Profil-Banner" oder "Refactor Profile-Service Logging"
+      placeholder: z. B. "Passe Button-Label in Profil-UI an"
     validations:
       required: true
 
   - type: textarea
-    id: description
+    id: details
     attributes:
       label: Beschreibung
-      description: Was soll konkret getan werden?
+      description: Was muss getan werden? (Kurz und prägnant)
       placeholder: |
         - Entferne Inline-Styles und nutze Theme
-        - Passe Button-Label in Profil-Seite an
-    validations:
-      required: true
-
-  - type: textarea
-    id: goal
-    attributes:
-      label: 🎯 Ziel
-      description: Was soll mit dieser Aufgabe erreicht werden?
-      placeholder: |
-        Einrichten eines automatisierten Build- und Push-Workflows für omnixys-account.
+        - Aktualisiere Profilbanner-Layout
     validations:
       required: true
 
@@ -48,41 +33,13 @@ body:
         - label: Dokumentation
 
   - type: textarea
-    id: steps
+    id: acceptance
     attributes:
-      label: ✅ Aufgaben & Schritte
-      description: Liste die erforderlichen Schritte für die Umsetzung.
+      label: ✅ Akzeptanzkriterien
+      description: Wann gilt die Aufgabe als abgeschlossen?
       placeholder: |
-        - Workflow-Datei unter `.github/workflows/deploy-account-service.yml` erstellen
-        - Schritte:
-            - Checkout
-            - Login zu ghcr.io
-            - Docker Build & Tag
-            - Docker Push nach ghcr.io/omnixys/account:latest
-    validations:
-      required: true
-
-  - type: textarea
-    id: config
-    attributes:
-      label: 🔧 Konfiguration
-      description: Parameter oder wichtige Einstellungen.
-      placeholder: |
-        - Image Repo: ghcr.io/omnixys/account:latest
-        - Registry Login: GITHUB_TOKEN
-        - Branch: main
-    validations:
-      required: false
-
-  - type: textarea
-    id: criteria
-    attributes:
-      label: 🔍 Erfolgskriterien
-      description: Wann gilt der Task als erledigt?
-      placeholder: |
-        - Workflow wird bei Änderungen korrekt ausgelöst
-        - Image wird erfolgreich gebaut und in GHCR gepusht
-        - Keine Secrets hardcoded
+        - Button verwendet Styles aus Theme
+        - Tests für neue UI-Komponente bestehen
     validations:
       required: true
 
