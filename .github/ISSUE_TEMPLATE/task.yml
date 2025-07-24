@@ -27,10 +27,11 @@ body:
       label: Bereiche
       options:
         - label: Frontend
-        - label: Backend
+        - label: Backend (Modelle, GraphQL, Services)
         - label: Tests
         - label: Konfiguration
         - label: Dokumentation
+        - label: Datenbank
 
   - type: textarea
     id: acceptance
@@ -53,3 +54,15 @@ body:
         - Niedrig
     validations:
       required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 💡 Hinweise
+      description: Zusätzliche technische Details, Randbedingungen oder Abhängigkeiten.
+      placeholder: |
+        - API-Dokumentation aktualisieren
+        - Integration mit bestehendem Logging berücksichtigen
+    validations:
+      required: false
+
