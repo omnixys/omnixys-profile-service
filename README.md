@@ -1,98 +1,124 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Omnixys Profile Service
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+![Build Status](https://img.shields.io/github/actions/workflow/status/omnixys/omnixys-profile-service/ci.yml?branch=main)
+![License](https://img.shields.io/badge/license-GPLv3-blue.svg)
+![Coverage](https://img.shields.io/codecov/c/github/omnixys/omnixys-profile-service)
+![Sonar Quality Gate](https://img.shields.io/sonar/quality_gate/omnixys_omnixys-profile-service?server=https%3A%2F%2Fsonarcloud.io)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Das **Profile Service** ist ein Microservice innerhalb der **OmnixysSphere**-Plattform. Er verwaltet Benutzerprofile, Social-Features und deren Integration mit externen Systemen wie Keycloak und Kafka.
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 Features
 
-## Project setup
+* Eigene Profilseite: Name, Profilbild, Bio
+* Social-Media-Integration: LinkedIn, Instagram, Twitter, Facebook
+* Profile anderer Nutzer mit Aktionen: Folgen, Nachricht senden
+* Feed für eigene Beiträge auf der Profilseite
+* Folgen-/Entfolgen-Funktion
+* Profileinstellungen inkl. Bild-Upload und Social-Links
+* Keycloak-basierte Authentifizierung und Autorisierung
+* Kafka-Integration für Events (z. B. Follow-Actions)
+* Observability: OpenTelemetry, LoggerPlus, Prometheus-Metriken
 
-```bash
-$ npm install
+---
+
+## 📂 Projektstruktur
+
+```
+src/
+├── admin/                  # Admin & Monitoring Endpunkte
+├── config/                 # App-, Kafka-, DB-, Security- und OTEL-Konfiguration
+├── health/                 # Healthchecks & Liveness/Readiness
+├── kafka/                  # Kafka Producer, Consumer und Dispatcher
+├── logger/                 # Logging & Middleware
+├── observability/          # OpenTelemetry, TraceContext & LoggerPlus
+├── profile/                # Kernmodul für Profile (Model, Resolver, Services)
+└── security/               # Keycloak Integration & Guards
 ```
 
-## Compile and run the project
+---
+
+## 🛠️ Tech Stack
+
+* **Backend:** NestJS + GraphQL (Code-First)
+* **Auth:** Keycloak
+* **DB:** MongoDB
+* **Messaging:** Apache Kafka
+* **Observability:** OpenTelemetry, Prometheus, Grafana
+
+---
+
+## 🔑 GraphQL API
+
+### Queries
+
+* `getProfile(username: String!)`
+* `getFollowers(userId: ID!)`
+
+### Mutations
+
+* `updateProfile(input: ProfileInput!)`
+* `followUser(userId: ID!)`
+* `unfollowUser(userId: ID!)`
+
+---
+
+## ⚙️ Setup
+
+### Lokal starten
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
+npm run start:dev
 ```
 
-## Run tests
+### Mit Docker starten
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+docker build -t omnixys-profile-service .
+docker run -p 7406:7406 --env-file .env omnixys-profile-service
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## 🌍 Environment Variables
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+| Variable                | Beispielwert                                                                        |
+| ----------------------- | ----------------------------------------------------------------------------------- |
+| NODE\_ENV               | development                                                                         |
+| HTTPS                   | false                                                                               |
+| MONGO\_DB\_DATABASE     | Profile                                                                             |
+| MONGODB\_USER\_NAME     | <username>                                                                          |
+| MONGODB\_USER\_PASSWORT | <password>                                                                          |
+| MONGO\_DB\_URI          | mongodb+srv://<username>:<password>@<cluster-url>/<db>?retryWrites=true\&w=majority |
+| CLIENT\_SECRET          | <client-secret>                                                                     |
+| KEYS\_PATH              | ../../keys                                                                          |
+| GRAPHQL\_SCHEMA         | true                                                                                |
+| TEMPO\_URI              | [http://localhost:4318/v1/traces](http://localhost:4318/v1/traces)                  |
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+> ⚠️ **Hinweis:** Verwende niemals echte Secrets oder Passwörter in der Dokumentation oder im Code. Nutze `.env`-Dateien und sichere sie.
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## 📊 Observability
 
-Check out a few resources that may come in handy when working with NestJS:
+* **Tracing:** OpenTelemetry + Tempo
+* **Metrics:** Prometheus Endpoint `/metrics`
+* **Logs:** JSON-Logs via LoggerPlus, zentralisiert über Kafka
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
-## Support
+## ✅ Nächste Schritte
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. UI-Integration für `/profile/[username]` im Next.js-Frontend
+2. Feed-Anbindung mit Pagination
+3. Erweiterung des Kafka-Eventmodells für Activity-Streams
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 📜 Lizenz
 
-## License
+Dieses Modul ist lizenziert unter der [GNU GPL v3](../LICENSE).
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+© 2025 Omnixys – Modular Thinking. Infinite Possibilities.
