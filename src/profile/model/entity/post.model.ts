@@ -14,12 +14,11 @@ export class Post {
 
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], default: [] })
-    media?: string[]; // Bild-/Videopfad
+  media?: string[]; // Bild-/Videopfad
 
-    @Field(() => Boolean, { defaultValue: false })
-    @Prop({ default: false })
-    isArchived: boolean;
-
+  @Field(() => Boolean, { defaultValue: false })
+  @Prop({ default: false })
+  isArchived: boolean;
 
   @Field(() => String)
   @Prop({ type: Types.ObjectId, ref: 'Profile', required: true })

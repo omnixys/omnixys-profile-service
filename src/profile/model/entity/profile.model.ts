@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Document } from 'mongoose';
+import { Post } from './post.model';
+import { UserSettings } from './user-settings.model';
 
 @ObjectType()
 @Schema({ timestamps: true, collection: 'profiles' })
@@ -20,7 +22,7 @@ export class Profile {
 
   @Field({ nullable: true })
   @Prop()
-  headline?: string;
+    headline?: string; // Wie LinkedIn-Überschrift
 
   @Field({ nullable: true })
   @Prop()
@@ -32,11 +34,35 @@ export class Profile {
 
   @Field({ nullable: true })
   @Prop()
-  coverImage?: string;
+    coverImage?: string; // Pfad zum Cover-Bild
 
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], default: [] })
   socialLinks?: string[]; // LinkedIn, Twitter, Instagram etc.
+
+  @Field(() => [ID])
+  @Prop()
+  followerIds: string[];
+
+  @Field(() => [ID])
+  @Prop()
+  followedIds: string[];
+
+  @Field(() => Boolean, { defaultValue: false })
+  @Prop({ default: false })
+  isSuspended: boolean;
+
+  @Field(() => Date, { nullable: true })
+  @Prop({ type: Date, default: null })
+  suspendedUntil?: Date; // Optional, falls das Profil vorübergehend gesperrt ist
+
+  @Field()
+  @Prop({ type: [Post], default: [] })
+  posts: Post[]; // Array von vollständigen Post-Objekten
+
+  @Field()
+  @Prop()
+  settings: UserSettings; // Verweis auf die Benutzereinstellungen
 }
 
 export type ProfileDocument = Profile & Document;

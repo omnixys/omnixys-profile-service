@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
@@ -13,15 +13,6 @@ export type OmnixysColorScheme =
 @ObjectType()
 @Schema({ timestamps: true })
 export class UserSettings {
-  @Field(() => ID)
-  get id(): string {
-    return (this as any)._id?.toString();
-  }
-
-  @Field(() => ID)
-  @Prop({ required: true, unique: true })
-  userId: string;
-
   @Field({ nullable: true })
   @Prop()
   language?: string;
@@ -39,3 +30,6 @@ export class UserSettings {
 
 export const UserSettingsSchema = SchemaFactory.createForClass(UserSettings);
 export type UserSettingsDocument = UserSettings & Document;
+
+// versionKey deaktivieren
+UserSettingsSchema.set('versionKey', false);
