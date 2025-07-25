@@ -38,4 +38,20 @@ export class ProfileWriteService {
     // Dokument speichern
     return profile.save();
   }
+
+  async archivePost(id: string): Promise<boolean> {
+    const post = await this.#postModel.findById(id);
+    if (!post) throw new NotFoundException('Post not found');
+    post.isArchived = true;
+    await post.save();
+    return true;
+  }
+
+  async unarchivePost(id: string): Promise<boolean> {
+    const post = await this.#postModel.findById(id);
+    if (!post) throw new NotFoundException('Post not found');
+    post.isArchived = false;
+    await post.save();
+    return true;
+  }
 }

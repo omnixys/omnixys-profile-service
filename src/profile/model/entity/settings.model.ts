@@ -2,6 +2,14 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Document } from 'mongoose';
 
+export type ThemeMode = 'light' | 'dark' | 'system';
+export type OmnixysColorScheme =
+  | 'original'
+  | 'red'
+  | 'green'
+  | 'yellow'
+  | 'blue';
+
 @ObjectType()
 @Schema({ timestamps: true, collection: 'profiles' })
 export class Profile {
@@ -14,29 +22,21 @@ export class Profile {
   @Prop({ required: true, unique: true })
   userId: string;
 
-  @Field()
-  @Prop({ required: true, unique: true })
-  username: string;
+  @Field({ nullable: true })
+  @Prop()
+  language?: string;
 
   @Field({ nullable: true })
   @Prop()
-  headline?: string;
+  colorMode?: ThemeMode;
 
   @Field({ nullable: true })
   @Prop()
-  location?: string;
+  colorScheme?: OmnixysColorScheme;
 
   @Field({ nullable: true })
-  @Prop()
-  profileImage?: string; // Pfad oder URL
-
-  @Field({ nullable: true })
-  @Prop()
-  coverImage?: string;
-
-  @Field(() => [String], { nullable: true })
-  @Prop({ type: [String], default: [] })
-  socialLinks?: string[]; // LinkedIn, Twitter, Instagram etc.
+  @Prop({ default: true })
+  showWelcomeScreen?: boolean;
 }
 
 export type ProfileDocument = Profile & Document;

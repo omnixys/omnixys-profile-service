@@ -37,6 +37,30 @@ src/
 └── security/               # Keycloak Integration & Guards
 ```
 
+````
+src/profile/
+├── model/
+│   ├── entity/
+│   │   ├── profile.model.ts        # Öffentliche Profildaten
+│   │   ├── post.model.ts           # Beiträge (Feed)
+│   │   ├── follow.model.ts         # Follower-Beziehungen
+│   │   └── user-settings.model.ts  # Private Einstellungen
+│   ├── dto/
+│   │   ├── create-post.input.ts
+│   │   ├── update-profile.input.ts
+│   │   ├── update-user-settings.input.ts
+├── service/
+│   ├── profile-read.service.ts
+│   ├── profile-write.service.ts
+│   ├── user-settings.service.ts
+├── resolver/
+│   ├── profile-query.resolver.ts
+│   ├── profile-mutation.resolver.ts
+│   └── user-settings.resolver.ts
+└── upload/
+    └── upload.controller.ts         # Media Upload Handling (Multer)
+````
+
 ---
 
 ## 🛠️ Tech Stack

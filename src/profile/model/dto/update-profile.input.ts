@@ -4,6 +4,21 @@ import { OmnixysColorScheme, ThemeMode } from '../entity/profile.model';
 @InputType()
 export class UpdateProfileInput {
   @Field({ nullable: true })
+  headline?: string;
+
+  @Field({ nullable: true })
+  location?: string;
+
+  @Field({ nullable: true })
+  profileImage?: string;
+
+  @Field({ nullable: true })
+  coverImage?: string;
+
+  @Field(() => [String], { nullable: true })
+  socialLinks?: string[];
+
+  @Field({ nullable: true })
   language?: string;
 
   @Field({ nullable: true })
