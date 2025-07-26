@@ -1,44 +1,53 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Post } from '../model/entity/post.model';
-import { CreatePostInput } from '../model/dto/create-post.input';
-import { UpdatePostInput } from '../model/dto/update-post.input';
+import { Post } from '../model/entity/post.model.js';
+import { CreatePostInput } from '../model/dto/create-post.input.js';
+import { UpdatePostInput } from '../model/dto/update-post.input.js';
+import { PostDocument } from '../model/entity/post.model.js';
 
 @Injectable()
 export class PostWriteService {
-    constructor(@InjectModel(Post.name) private readonly postModel: Model<Post>) { }
+  readonly #postModel: Model<PostDocument>;
 
-    async createPost(input: CreatePostInput): Promise<Post> {
-        const post = new this.postModel(input);
-        return post.save();
-    }
+  constructor(@InjectModel(Post.name) postModel: Model<PostDocument>) {
+    this.#postModel = postModel;
+  }
 
-    async updatePost(id: string, input: UpdatePostInput): Promise<Post> {
-        const post = await this.postModel.findById(id);
-        if (!post) throw new NotFoundException('Post not found');
-        Object.assign(post, input);
-        return post.save();
-    }
+  async createPost(input: CreatePostInput): Promise<Post> {
+    const post = new this.#postModel(input);
+    return post.save();
+  }
 
-    async deletePost(id: string): Promise<boolean> {
-        const result = await this.postModel.findByIdAndDelete(id);
-        return !!result;
-    }
+  async updatePost(id: string, input: UpdatePostInput): Promise<Post> {
+    const post = await this.#postModel.findById(id);
+    if (!post) throw new NotFoundException('Post not found');
+    Object.assign(post, input);
+    return post.save();
+  }
 
-    async archivePost(id: string): Promise<boolean> {
-        const post = await this.postModel.findById(id);
-        if (!post) throw new NotFoundException('Post not found');
-        post.isArchived = true;
-        await post.save();
-        return true;
-    }
+  async deletePost(id: string): Promise<boolean> {
+    const result = await this.#postModel.findByIdAndDelete(id);
+    return !!result;
+  }
 
-    async unarchivePost(id: string): Promise<boolean> {
-        const post = await this.postModel.findById(id);
-        if (!post) throw new NotFoundException('Post not found');
-        post.isArchived = false;
-        await post.save();
-        return true;
-    }
+  async archivePost(id: string): Promise<boolean> {
+    const post = await this.#postModel.findById(id);
+    if (!post) throw new NotFoundException('Post not found');
+    post.isArchived = true;
+    await post.save();
+    return true;
+  }
+
+  async unarchivePost(id: string): Promise<boolean> {
+    const post = await this.#postModel.findById(id);
+    if (!post) throw new NotFoundException('Post not found');
+    post.isArchived = false;
+    await post.save();
+    return true;
+  }
+
+  async clearAll(): Promise<void> {
+    await this.#postModel.deleteMany({});
+  }
 }

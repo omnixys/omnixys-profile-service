@@ -16,7 +16,11 @@ export class UploadController {
     FileInterceptor('file', {
       storage: diskStorage({
         destination: './uploads',
-        filename: (req, file, cb) => {
+        filename: (
+          _req: any,
+          file: { originalname: string },
+          cb: (arg0: null, arg1: string) => void,
+        ) => {
           const ext = path.extname(file.originalname);
           const filename = `${uuid()}${ext}`;
           cb(null, filename);

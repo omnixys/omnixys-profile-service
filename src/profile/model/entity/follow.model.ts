@@ -3,21 +3,24 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
 @ObjectType()
-@Schema({ timestamps: true })
-export class Follow{
-    @Field(() => ID)
-    get id(): string {
-        return (this as any)._id?.toString();
-    }
+@Schema({ timestamps: true, collection: 'follows' })
+export class Follow {
+  @Field(() => ID)
+  @Prop({ type: Types.ObjectId, ref: 'Profile', required: true })
+  followerId: string;
 
-    @Field(() => String)
-    @Prop({ type: Types.ObjectId, ref: 'Profile', required: true })
-    followerId: string;
+  @Field(() => ID)
+  @Prop({ type: Types.ObjectId, ref: 'Profile', required: true })
+  followedId: string;
 
-    @Field(() => String)
-    @Prop({ type: Types.ObjectId, ref: 'Profile', required: true })
-    followedId: string;
+  @Field(() => Date)
+  createdAt: Date;
+
+  @Field(() => Date)
+  updatedAt: Date;
 }
 
-export const FollowSchema = SchemaFactory.createForClass(Follow);
 export type FollowDocument = Follow & Document;
+export const FollowSchema = SchemaFactory.createForClass(Follow);
+
+FollowSchema.index({ followerId: 1, followedId: 1 }, { unique: true });

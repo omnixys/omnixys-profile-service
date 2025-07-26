@@ -1,6 +1,11 @@
+import { Follow, FollowSchema } from './follow.model.js';
+import { Post, PostSchema } from './post.model.js';
 import { Profile, ProfileSchema } from './profile.model.js';
 
-export type EntitySchemaType = typeof ProfileSchema;
+export type EntitySchemaType =
+  | typeof ProfileSchema
+  | typeof FollowSchema
+  | typeof PostSchema;
 
 /**
  * Definiert eine Mongoose-Entität und deren Schema.
@@ -25,6 +30,8 @@ type EntitySchema = {
  */
 const entitySchemas: EntitySchema[] = [
   { name: Profile.name, schema: ProfileSchema },
+  { name: Follow.name, schema: FollowSchema },
+  { name: Post.name, schema: PostSchema },
 ];
 
 /**

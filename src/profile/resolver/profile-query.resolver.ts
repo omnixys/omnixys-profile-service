@@ -3,7 +3,7 @@ import { Profile } from '../model/entity/profile.model.js';
 import { ProfileReadService } from '../service/profile-read.service.js';
 import { KeycloakService } from '../../security/keycloak/keycloak.service.js';
 import { UUID } from 'crypto';
-import { Public, Roles } from 'nest-keycloak-connect';
+import { Public } from 'nest-keycloak-connect';
 import { UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { KeycloakGuard } from '../../security/keycloak/guards/keycloak.guard.js';
@@ -49,6 +49,6 @@ export class ProfileQueryResolver {
   @Public()
   @Query(() => [Profile])
   async getProfiles(): Promise<Profile[]> {
-    return this.#profileReadService.getAllProfiles();
+    return this.#profileReadService.findAllProfiles();
   }
 }

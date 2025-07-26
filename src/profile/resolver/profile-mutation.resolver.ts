@@ -21,7 +21,7 @@ export class ProfileMutationResolver {
   // Profile Management
   @Mutation(() => Profile)
   async createProfile(@Args('input') input: CreateProfileInput) {
-    return this.#profileService.createProfile(input);
+    return this.#profileService.create(input);
   }
 
   @Mutation(() => Profile)

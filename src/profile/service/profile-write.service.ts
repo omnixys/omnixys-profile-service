@@ -38,20 +38,59 @@ export class ProfileWriteService {
     // Dokument speichern
     return profile.save();
   }
+  async deleteProfile(id: string): Promise<boolean> {
+    const result = await this.#profileModel.findByIdAndDelete(id);
+    return !!result;
+  }
 
-  async archivePost(id: string): Promise<boolean> {
-    const post = await this.#postModel.findById(id);
-    if (!post) throw new NotFoundException('Post not found');
-    post.isArchived = true;
-    await post.save();
+  async suspendProfile(id: string): Promise<boolean> {
+    const profile = await this.#profileModel.findById(id);
+    if (!profile) {
+      throw new NotFoundException(`Profil mit ID '${id}' nicht gefunden`);
+    }
+    profile.settings.isSuspended = true;
+    await profile.save();
+    return true;
+  }
+  async blockUser(blockedId: string): Promise<boolean> {
+    const profile = await this.#profileReadService.findByUsername(blockedId);
+    if (!profile) {
+      throw new NotFoundException(
+        `Profil mit ID '${blockedId}' nicht gefunden`,
+      );
+    }
+    // Hier könnte Logik zum Speichern der Blockierung hinzugefügt werden
+    // Zum Beispiel: profile.blockedList.push({ blockedId, blockedAt: new Date() });
+    // profile.save();
     return true;
   }
 
-  async unarchivePost(id: string): Promise<boolean> {
-    const post = await this.#postModel.findById(id);
-    if (!post) throw new NotFoundException('Post not found');
-    post.isArchived = false;
-    await post.save();
+  async unblockUser(blockedId: string): Promise<boolean> {
+    const profile = await this.#profileReadService.findByUsername(blockedId);
+    if (!profile) {
+      throw new NotFoundException(
+        `Profil mit ID '${blockedId}' nicht gefunden`,
+      );
+    }
+    // Hier könnte Logik zum Entfernen der Blockierung hinzugefügt werden
+    // Zum Beispiel: profile.blockedList = profile.blockedList.filter(b => b.blockedId !== blockedId);
+    // profile.save();
+    return true;
+  }
+  async reportUser(reportedId: string, reason: string): Promise<boolean> {
+    const profile = await this.#profileReadService.findByUsername(reportedId);
+    if (!profile) {
+      throw new NotFoundException(
+        `Profil mit ID '${reportedId}' nicht gefunden`,
+      );
+    }
+    if (!reason) {
+      throw new Error('Reason for reporting must be provided');
+    }
+    //
+    // Hier könnte Logik zum Speichern des Berichts hinzugefügt werden
+    // Zum Beispiel: profile.reports.push({ reason, date: new Date() });
+    // profile.save();
     return true;
   }
 }

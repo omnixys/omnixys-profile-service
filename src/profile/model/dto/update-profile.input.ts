@@ -1,5 +1,8 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { OmnixysColorScheme, ThemeMode } from '../entity/profile.model';
+import {
+  OmnixysColorScheme,
+  ThemeMode,
+} from '../entity/profile-settings.model.js';
 
 @InputType()
 export class UpdateProfileInput {
