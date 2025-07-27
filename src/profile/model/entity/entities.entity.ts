@@ -1,7 +1,7 @@
-import { Follow, FollowSchema } from './follow.model.js';
+import { Follow, FollowSchema } from './follow.entity.js';
 import { Friendship, FriendshipSchema } from './friendship.entity.js';
-import { Post, PostSchema } from './post.model.js';
-import { Profile, ProfileSchema } from './profile.model.js';
+import { Post, PostSchema } from './post.entity.js';
+import { Profile, ProfileSchema } from './profile.entity.js';
 
 export type EntitySchemaType =
   | typeof ProfileSchema

@@ -1,5 +1,5 @@
 import { Resolver, Query, Args } from '@nestjs/graphql';
-import { Post } from '../model/entity/post.model.js';
+import { Post } from '../model/entity/post.entity.js';
 import { PostReadService } from '../service/post-read.service.js';
 import { UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import { KeycloakGuard } from '../../security/keycloak/guards/keycloak.guard.js';

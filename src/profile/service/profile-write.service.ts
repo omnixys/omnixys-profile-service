@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Profile, ProfileDocument } from '../model/entity/profile.model.js';
+import { Profile, ProfileDocument } from '../model/entity/profile.entity.js';
 import { UpdateProfileInput } from '../model/dto/update-profile.input.js';
 import { ProfileReadService } from './profile-read.service.js';
 
