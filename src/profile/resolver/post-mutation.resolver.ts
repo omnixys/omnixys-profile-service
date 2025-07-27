@@ -1,5 +1,5 @@
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
-import { Post } from '../model/entity/post.model.js';
+import { Post } from '../model/entity/post.entity.js';
 import { CreatePostInput } from '../model/dto/create-post.input.js';
 import { UpdatePostInput } from '../model/dto/update-post.input.js';
 import { PostWriteService } from '../service/post-write.service.js';

@@ -1,5 +1,5 @@
 import { Resolver, Mutation, Args, Context } from '@nestjs/graphql';
-import { Profile } from '../model/entity/profile.model.js';
+import { Profile } from '../model/entity/profile.entity.js';
 import { UpdateProfileInput } from '../model/dto/update-profile.input.js';
 import { ProfileWriteService } from '../service/profile-write.service.js';
 import { KeycloakService } from '../../security/keycloak/keycloak.service.js';

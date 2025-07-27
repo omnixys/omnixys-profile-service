@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Post } from '../model/entity/post.model.js';
+import { Post } from '../model/entity/post.entity.js';
 import { CreatePostInput } from '../model/dto/create-post.input.js';
 import { UpdatePostInput } from '../model/dto/update-post.input.js';
-import { PostDocument } from '../model/entity/post.model.js';
+import { PostDocument } from '../model/entity/post.entity.js';
 
 @Injectable()
 export class PostWriteService {

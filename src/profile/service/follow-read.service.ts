@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Follow, FollowDocument } from '../model/entity/follow.model.js';
+import { Follow, FollowDocument } from '../model/entity/follow.entity.js';
 import { SpanStatusCode } from '@opentelemetry/api';
 import { LoggerService } from '../../observability/logger.service.js';
 import { LoggerPlus } from '../../observability/logger-plus.js';

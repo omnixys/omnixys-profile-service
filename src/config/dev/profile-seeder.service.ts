@@ -83,6 +83,7 @@ export class ProfileSeederService implements OnModuleInit {
                 continue;
             }
 
+
             // Check: existiert Post mit gleichem Content für diesen User?
             const exists = await this.#postWriteService.findByContentAndProfile(post.content, profile.id);
             if (exists) {
@@ -103,27 +104,38 @@ export class ProfileSeederService implements OnModuleInit {
 
 
 
-  async #seedFollows(): Promise<void> {
-    for (const follow of follows) {
+    async #seedFollows(): Promise<void> {
+        for (const follow of follows) {
 
-      const exists = await this.#followReadService.exists(
-          follow.followerId,
-          follow.followedId,
-      );
-      if (exists) {
-        this.#logger.debug(
-            `Follow ${follow.followerId} -> ${follow.followedId} already exists, skipping.`,
-        );
-        continue;
-      }
+            const followerProfile = await this.#profileReadService.findByUsername(follow.followerId);
+            const followedProfile = await this.#profileReadService.findByUsername(follow.followedId);
+            if (!followerProfile || !followedProfile) {
+                this.#logger.warn(`⚠ Profile not found for follow: ${follow.followerId} -> ${follow.followedId}`);
+                continue;
+            }
+            // Check: existiert Follow-Beziehung bereits?
+            if (followerProfile.id === followedProfile.id) {
+                this.#logger.debug(`Skipping self-follow for ${follow.followerId}`);
+                continue;
+            }
+            const exists = await this.#followReadService.exists(
+                followerProfile.id,
+                followedProfile.id,
+            );
 
-        await this.#followWriteService.followUser(follow.followerId,
-            follow.followedId,);
-      this.#logger.debug(
-        `Inserted follow: ${follow.followerId} -> ${follow.followedId}`,
-      );
+
+            if (!exists) {
+                await this.#followWriteService.followUser(
+                    followerProfile.id,
+                    followedProfile.id,
+                );
+                this.#logger.debug(`✅ Follow created: ${follow.followerId} -> ${follow.followedId}`);
+            } else {
+                this.#logger.debug(`Follow already exists: ${follow.followerId} -> ${follow.followedId}`);
+
+            }
+        }
     }
-  }
 
     async #seedFriendships(): Promise<void> {
         for (const friendship of friendships) {

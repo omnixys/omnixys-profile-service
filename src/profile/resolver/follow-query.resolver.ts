@@ -1,5 +1,5 @@
 import { Resolver, Query, Args, Int } from '@nestjs/graphql';
-import { Follow } from '../model/entity/follow.model.js';
+import { Follow } from '../model/entity/follow.entity.js';
 import { FollowReadService } from '../service/follow-read.service.js';
 
 @Resolver(() => Follow)
