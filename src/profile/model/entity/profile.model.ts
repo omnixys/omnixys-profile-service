@@ -1,24 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Document } from 'mongoose';
-
-export type ThemeMode = 'light' | 'dark' | 'system';
-export type OmnixysColorScheme =
-  | 'original'
-  | 'red'
-  | 'green'
-  | 'yellow'
-  | 'blue';
+import { ProfileSettings } from './profile-settings.model.js';
+import { ProfileInfo } from './profile-info.entity.js';
 
 @ObjectType()
 @Schema({ timestamps: true, collection: 'profiles' })
 export class Profile {
-  @Field()
+  @Field(() => ID)
   get id(): string {
     return (this as any)._id?.toString();
   }
 
-  @Field()
+  @Field(() => ID)
   @Prop({ required: true, unique: true })
   userId: string;
 
@@ -26,21 +20,13 @@ export class Profile {
   @Prop({ required: true, unique: true })
   username: string;
 
-  @Field({ nullable: true })
-  @Prop()
-  language?: string;
+  @Field(() => ProfileInfo, { nullable: true })
+  @Prop({ type: ProfileInfo })
+  info?: ProfileInfo;
 
-  @Field({ nullable: true })
-  @Prop()
-  colorMode?: ThemeMode;
-
-  @Field({ nullable: true })
-  @Prop()
-  colorScheme?: OmnixysColorScheme;
-
-  @Field({ nullable: true })
-  @Prop({ default: true })
-  showWelcomeScreen?: boolean;
+  @Field(() => ProfileSettings, { nullable: true })
+  @Prop({ type: ProfileSettings })
+  settings?: ProfileSettings; // Verweis auf die Benutzereinstellungen
 }
 
 export type ProfileDocument = Profile & Document;

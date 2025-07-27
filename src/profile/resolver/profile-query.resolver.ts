@@ -3,7 +3,7 @@ import { Profile } from '../model/entity/profile.model.js';
 import { ProfileReadService } from '../service/profile-read.service.js';
 import { KeycloakService } from '../../security/keycloak/keycloak.service.js';
 import { UUID } from 'crypto';
-import { Roles } from 'nest-keycloak-connect';
+import { Public } from 'nest-keycloak-connect';
 import { UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { KeycloakGuard } from '../../security/keycloak/guards/keycloak.guard.js';
@@ -26,16 +26,29 @@ export class ProfileQueryResolver {
   }
 
   @Query(() => Profile)
-  @Roles({ roles: ['Admin'] })
+  async myProfile(@Context() context: any): Promise<Profile> {
+    const { username } = await this.#keycloakService.getToken(context);
+    return this.#profileReadService.findByUsername(username);
+  }
+
+  /**
+   * Hole ein Profil basierend auf dem Benutzernamen.
+   */
+  @Query(() => Profile)
+  @Public()
   async getProfilByUserId(
     @Args('customerId') customerId: UUID,
   ): Promise<Profile> {
     return this.#profileReadService.findByUserId(customerId);
   }
 
-  @Query(() => Profile)
-  async myProfile(@Context() context: any): Promise<Profile> {
-    const { username } = await this.#keycloakService.getToken(context);
-    return this.#profileReadService.findByUsername(username);
+  /**
+   * Liste alle Profile (für Suchfunktionen).
+   * Optional: Paginierung und Filter können später hinzugefügt werden.
+   */
+  @Public()
+  @Query(() => [Profile])
+  async getProfiles(): Promise<Profile[]> {
+    return this.#profileReadService.findAllProfiles();
   }
 }
