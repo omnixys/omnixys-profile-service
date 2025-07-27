@@ -17,6 +17,10 @@ import { FollowMutationResolver } from './resolver/follow-mutation.resolver.js';
 import { FollowQueryResolver } from './resolver/follow-query.resolver.js';
 import { PostQueryResolver } from './resolver/post-query.resolver.js';
 import { PostMutationResolver } from './resolver/post-mutation.resolver.js';
+import { FriendshipMutationResolver } from './resolver/friendship-mutation.resolver.js';
+import { FriendshipQueryResolver } from './resolver/friendship-query.resolver.js';
+import { FriendshipReadService } from './service/friendship-read.service.js';
+import { FriendshipWriteService } from './service/friendship-write.service.js';
 
 /**
  * Das Modul besteht aus allgemeinen Services, z.B. MailService.
@@ -47,6 +51,10 @@ import { PostMutationResolver } from './resolver/post-mutation.resolver.js';
     FollowReadService,
     PostReadService,
     PostWriteService,
+    FriendshipMutationResolver,
+    FriendshipReadService,
+    FriendshipWriteService,
+    FriendshipQueryResolver,
   ],
   exports: [
     ProfileReadService,
@@ -55,6 +63,9 @@ import { PostMutationResolver } from './resolver/post-mutation.resolver.js';
     FollowReadService,
     PostReadService,
     PostWriteService,
+    FriendshipMutationResolver,
+    FriendshipReadService,
+    FriendshipWriteService,
   ],
 })
 export class ProfileModule {}

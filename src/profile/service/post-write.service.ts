@@ -50,4 +50,8 @@ export class PostWriteService {
   async clearAll(): Promise<void> {
     await this.#postModel.deleteMany({});
   }
+
+  async findByContentAndProfile(content: string, profileId: string) {
+    return this.#postModel.findOne({ content, profileId });
+  }
 }
