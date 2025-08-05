@@ -75,7 +75,7 @@ export class ProfileQueryResolver {
 
     @Query(() => FullProfileDTO)
     @Public()
-    async getFullProfilByUserId(
+    async getFullProfileByUserId(
         @Args('customerId') customerId: UUID,
     ): Promise<FullProfile> {
         this.#logger.debug('getFullProfilByUserId: customerId: %s', customerId);

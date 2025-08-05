@@ -10,6 +10,7 @@ import { SpanStatusCode } from '@opentelemetry/api';
 import { FullProfile } from '../resolver/profile-query.resolver.js';
 import { FollowReadService } from './follow-read.service.js';
 import { FriendshipReadService } from './friendship-read.service.js';
+import { ApolloError } from 'apollo-server';
 // import { PostReadService } from './post-read.service.js';
 
 @Injectable()
@@ -38,7 +39,13 @@ export class ProfileReadService {
     }
 
     async findByUserId(userId: UUID): Promise<Profile> {
-        return this.#profileModel.findOne({ userId });
+        const profile = this.#profileModel.findOne({ userId });
+        if (!profile) {
+            throw new ApolloError(`Kein Profil gefunden für UserID: ${userId}`, 'PROFILE_NOT_FOUND');
+        }
+
+        this.#logger.debug(`Found profile for userId ${userId}`,);
+        return profile;
     }
 
     async findByUsername(username: string): Promise<ProfileDocument> {
@@ -88,6 +95,13 @@ export class ProfileReadService {
         this.#logger.debug('getFullProfile:  userId: %s', userId);
 
         const profile = await this.findByUserId(userId);
+
+        if (!profile) {
+            throw new ApolloError(`Kein Profil gefunden für UserID: ${userId}`, 'PROFILE_NOT_FOUND');
+          }
+
+
+        this.#logger.debug('getFullProfile: profile: %o', profile);
 
         const profileId = profile.id;
         this.#logger.debug('getFullProfile: profileId: %s', profileId);

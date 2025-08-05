@@ -11,7 +11,8 @@ export class FollowWriteService {
     this.#followModel = followModel;
   }
 
-  async followUser(followerId: string, followedId: string): Promise<boolean> {
+    async followUser(followerId: string, followedId: string): Promise<boolean> {
+
     const exists = await this.#followModel.findOne({ followerId, followedId });
     if (exists) return true;
     await this.#followModel.create({ followerId, followedId });
