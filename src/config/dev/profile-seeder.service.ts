@@ -3,7 +3,6 @@ import { profiles } from './profiles.js';
 import { ProfileReadService } from '../../profile/service/profile-read.service.js';
 import { ProfileWriteService } from '../../profile/service/profile-write.service.js';
 import { FollowWriteService } from '../../profile/service/follow-write.service.js';
-import { FollowReadService } from '../../profile/service/follow-read.service.js';
 import { PostWriteService } from '../../profile/service/post-write.service.js';
 import { getLogger } from '../../logger/logger.js';
 import { follows } from './follows.js';
@@ -23,7 +22,6 @@ export class ProfileSeederService implements OnModuleInit {
   readonly #profileWriteService: ProfileWriteService;
 
   readonly #followWriteService: FollowWriteService;
-  readonly #followReadService: FollowReadService;
 
     readonly #postWriteService: PostWriteService;
 
@@ -35,7 +33,6 @@ export class ProfileSeederService implements OnModuleInit {
     profileReadService: ProfileReadService,
     profileWriteService: ProfileWriteService,
     followWriteService: FollowWriteService,
-    followReadService: FollowReadService,
       postWriteService: PostWriteService,
     friendshipReadService: FriendshipReadService,
     friendshipWriteService: FriendshipWriteService,
@@ -43,7 +40,6 @@ export class ProfileSeederService implements OnModuleInit {
     this.#profileReadService = profileReadService;
     this.#profileWriteService = profileWriteService;
     this.#followWriteService = followWriteService;
-    this.#followReadService = followReadService;
       this.#postWriteService = postWriteService;
     this.#friendshipReadService = friendshipReadService;
     this.#friendshipWriteService = friendshipWriteService;
@@ -107,38 +103,20 @@ export class ProfileSeederService implements OnModuleInit {
     async #seedFollows(): Promise<void> {
         for (const follow of follows) {
 
-            const followerProfile = await this.#profileReadService.findByUsername(follow.followerId);
-            const followedProfile = await this.#profileReadService.findByUsername(follow.followedId);
-            if (!followerProfile || !followedProfile) {
-                this.#logger.warn(`⚠ Profile not found for follow: ${follow.followerId} -> ${follow.followedId}`);
-                continue;
-            }
-            // Check: existiert Follow-Beziehung bereits?
-            if (followerProfile.id === followedProfile.id) {
-                this.#logger.debug(`Skipping self-follow for ${follow.followerId}`);
-                continue;
-            }
-            const exists = await this.#followReadService.exists(
-                followerProfile.id,
-                followedProfile.id,
+            const follower = await this.#profileReadService.findByUsername(follow.followerUsername);
+            const followed = await this.#profileReadService.findByUsername(follow.followedUsername);
+
+            await this.#followWriteService.followUser(
+                follower.id,
+                followed.id,
             );
-
-
-            if (!exists) {
-                await this.#followWriteService.followUser(
-                    followerProfile.id,
-                    followedProfile.id,
-                );
-                this.#logger.debug(`✅ Follow created: ${follow.followerId} -> ${follow.followedId}`);
-            } else {
-                this.#logger.debug(`Follow already exists: ${follow.followerId} -> ${follow.followedId}`);
-
-            }
         }
     }
 
     async #seedFriendships(): Promise<void> {
         for (const friendship of friendships) {
+
+
             const requester = await this.#profileReadService.findByUsername(friendship.requesterUsername);
             const recipient = await this.#profileReadService.findByUsername(friendship.recipientUsername);
 
