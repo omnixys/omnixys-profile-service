@@ -31,16 +31,18 @@ export class FriendshipReadService {
     });
   }
 
-    async getFriendshipById(friendshipId: string): Promise<Friendship | null> {
+  async getFriendshipById(friendshipId: string): Promise<Friendship | null> {
     this.#logger.debug(`Retrieving friendship by ID: ${friendshipId}`);
     return this.#friendshipModel.findById(friendshipId);
-    }
+  }
 
-    async getFriendshipByProfiles(
-        profileA: string,
-        profileB: string,
-    ): Promise<Friendship | null> {
-    this.#logger.debug(`Retrieving friendship between ${profileA} and ${profileB}`);
+  async getFriendshipByProfiles(
+    profileA: string,
+    profileB: string,
+  ): Promise<Friendship | null> {
+    this.#logger.debug(
+      `Retrieving friendship between ${profileA} and ${profileB}`,
+    );
     return this.#friendshipModel.findOne({
       $or: [
         { requesterId: profileA, recipientId: profileB },
@@ -49,26 +51,28 @@ export class FriendshipReadService {
     });
   }
 
-    async getPendingRequests(profileId: string): Promise<Friendship[]> {
-        this.#logger.debug(`Retrieving pending requests for profileId: ${profileId}`);
-        return this.#friendshipModel.find({
-        recipientId: profileId,
-        status: 'PENDING',
-        });
-    }
+  async getPendingRequests(profileId: string): Promise<Friendship[]> {
+    this.#logger.debug(
+      `Retrieving pending requests for profileId: ${profileId}`,
+    );
+    return this.#friendshipModel.find({
+      recipientId: profileId,
+      status: 'PENDING',
+    });
+  }
 
-    async getSentRequests(profileId: string): Promise<Friendship[]> {
-        this.#logger.debug(`Retrieving sent requests for profileId: ${profileId}`);
-        return this.#friendshipModel.find({
-        requesterId: profileId,
-        status: 'PENDING',
-        });
-    }
+  async getSentRequests(profileId: string): Promise<Friendship[]> {
+    this.#logger.debug(`Retrieving sent requests for profileId: ${profileId}`);
+    return this.#friendshipModel.find({
+      requesterId: profileId,
+      status: 'PENDING',
+    });
+  }
 
-    async getAllFriendships(): Promise<Friendship[]> {
-        this.#logger.debug('Retrieving all friendships');
-        return this.#friendshipModel.find();
-    }
+  async getAllFriendships(): Promise<Friendship[]> {
+    this.#logger.debug('Retrieving all friendships');
+    return this.#friendshipModel.find();
+  }
 
   async findExisting(
     profileA: string,

@@ -10,7 +10,7 @@ import {
 
 export const profiles = [
   {
-    userId: '00000000-0000-0000-0000-000000000000' as UUID,
+    userId: '0cf39eea-c751-4856-9d08-f4c3195613ff' as UUID,
     username: 'admin',
 
     info: {
@@ -19,10 +19,48 @@ export const profiles = [
       profileImage: '/uploads/admin.jpg',
       coverImage: '/uploads/admin-cover.jpg',
       socialLinks: [
-        'https://linkedin.com/in/admin',
-        'https://twitter.com/admin',
-      ],
-    },
+        {
+          type: 'linkedin',
+          link: 'https://linkedin.com/in/admin',
+        },
+        {
+          type: 'twitter',
+          link: 'https://twitter.com/admin',
+        },
+        ],
+        kurzprofil: "Fullstack Developer mit Fokus auf TypeScript, GraphQL und Cloud- Infrastruktur.Zielorientiert, kreativ und immer bereit für neue Herausforderungen.",
+        ausbildung: [{
+            abschluss: "M.SC",
+            in: "Computer Science",
+            wo: "Universität Stuttgart"
+        }, {
+                abschluss: "B.SC",
+                in: "Computer Science",
+                wo: "Universität Stuttgart"
+            }],
+        berufserfahrung: [{
+            wo: "Amazon",
+            als: "It-Support",
+            beschreibung: "string",
+            von: "03.04.09",
+            bis: "03.04.15",
+        }, {
+                wo: "Microsoft",
+                als: "lead Software engineer",
+                beschreibung: "code techi",
+                von: "03.04.09",
+                bis: "03.04.15",
+            }],
+            kenntnisse: [
+                'TypeScript',
+                'Next.js',
+                'GraphQL',
+                'MongoDB',
+                'Docker',
+                'Kubernetes',
+        ],
+        sprachen: ["Deutsch", "Englisch", "Französisch"],
+        },
 
     settings: {
       isSuspended: false,
@@ -55,9 +93,47 @@ export const profiles = [
       profileImage: '/uploads/erik.jpg',
       coverImage: '/uploads/erik-cover.jpg',
       socialLinks: [
-        'https://linkedin.com/in/erik',
-        'https://github.com/erik-dev',
-      ],
+        {
+          type: 'linkedin',
+          link: 'https://linkedin.com/in/admin',
+        },
+        {
+          type: 'twitter',
+          link: 'https://twitter.com/admin',
+        },
+        ],
+        kurzprofil: "Fullstack Developer mit Fokus auf TypeScript, GraphQL und Cloud- Infrastruktur.Zielorientiert, kreativ und immer bereit für neue Herausforderungen.",
+        ausbildung: [{
+            abschluss: "M.SC",
+            in: "Computer Science",
+            wo: "Universität Stuttgart"
+        }, {
+            abschluss: "B.SC",
+            in: "Computer Science",
+            wo: "Universität Stuttgart"
+        }],
+        berufserfahrung: [{
+            wo: "Amazon",
+            als: "It-Support",
+            beschreibung: "string",
+            von: "03.04.09",
+            bis: "03.04.15",
+        }, {
+            wo: "Microsoft",
+            als: "lead Software engineer",
+            beschreibung: "code techi",
+            von: "03.04.09",
+            bis: "03.04.15",
+        }],
+        kenntnisse: [
+            'TypeScript',
+            'Next.js',
+            'GraphQL',
+            'MongoDB',
+            'Docker',
+            'Kubernetes',
+        ],
+        sprachen: ["Deutsch", "Englisch", "Französisch"],
     },
     settings: {
       isSuspended: false,
@@ -76,9 +152,47 @@ export const profiles = [
       profileImage: '/uploads/caleb.jpg',
       coverImage: '/uploads/caleb-cover.jpg',
       socialLinks: [
-        'https://linkedin.com/in/caleb',
-        'https://github.com/calebscript',
-      ],
+        {
+          type: 'linkedin',
+          link: 'https://linkedin.com/in/admin',
+        },
+        {
+          type: 'twitter',
+          link: 'https://twitter.com/admin',
+        },
+        ],
+        kurzprofil: "Fullstack Developer mit Fokus auf TypeScript, GraphQL und Cloud- Infrastruktur.Zielorientiert, kreativ und immer bereit für neue Herausforderungen.",
+        ausbildung: [{
+            abschluss: "M.SC",
+            in: "Computer Science",
+            wo: "Universität Stuttgart"
+        }, {
+            abschluss: "B.SC",
+            in: "Computer Science",
+            wo: "Universität Stuttgart"
+        }],
+        berufserfahrung: [{
+            wo: "Amazon",
+            als: "It-Support",
+            beschreibung: "string",
+            von: "03.04.09",
+            bis: "03.04.15",
+        }, {
+            wo: "Microsoft",
+            als: "lead Software engineer",
+            beschreibung: "code techi",
+            von: "03.04.09",
+            bis: "03.04.15",
+        }],
+        kenntnisse: [
+            'TypeScript',
+            'Next.js',
+            'GraphQL',
+            'MongoDB',
+            'Docker',
+            'Kubernetes',
+        ],
+        sprachen: ["Deutsch", "Englisch", "Französisch"],
     },
     settings: {
       isSuspended: false,
@@ -97,9 +211,47 @@ export const profiles = [
       profileImage: '/uploads/leroy.jpg',
       coverImage: '/uploads/leroy-cover.jpg',
       socialLinks: [
-        'https://linkedin.com/in/leroy',
-        'https://twitter.com/leroy135',
-      ],
+        {
+          type: 'linkedin',
+          link: 'https://linkedin.com/in/admin',
+        },
+        {
+          type: 'twitter',
+          link: 'https://twitter.com/admin',
+        },
+        ],
+        kurzprofil: "Fullstack Developer mit Fokus auf TypeScript, GraphQL und Cloud- Infrastruktur.Zielorientiert, kreativ und immer bereit für neue Herausforderungen.",
+        ausbildung: [{
+            abschluss: "M.SC",
+            in: "Computer Science",
+            wo: "Universität Stuttgart"
+        }, {
+            abschluss: "B.SC",
+            in: "Computer Science",
+            wo: "Universität Stuttgart"
+        }],
+        berufserfahrung: [{
+            wo: "Amazon",
+            als: "It-Support",
+            beschreibung: "string",
+            von: "03.04.09",
+            bis: "03.04.15",
+        }, {
+            wo: "Microsoft",
+            als: "lead Software engineer",
+            beschreibung: "code techi",
+            von: "03.04.09",
+            bis: "03.04.15",
+        }],
+        kenntnisse: [
+            'TypeScript',
+            'Next.js',
+            'GraphQL',
+            'MongoDB',
+            'Docker',
+            'Kubernetes',
+        ],
+        sprachen: ["Deutsch", "Englisch", "Französisch"],
     },
     settings: {
       isSuspended: false,
@@ -118,9 +270,47 @@ export const profiles = [
       profileImage: '/uploads/rae.jpg',
       coverImage: '/uploads/rae-cover.jpg',
       socialLinks: [
-        'https://linkedin.com/in/rae',
-        'https://twitter.com/rae_dev',
-      ],
+        {
+          type: 'linkedin',
+          link: 'https://linkedin.com/in/rae',
+        },
+        {
+          type: 'twitter',
+          link: 'https://twitter.com/rae',
+        },
+        ],
+        kurzprofil: "Fullstack Developer mit Fokus auf TypeScript, GraphQL und Cloud- Infrastruktur.Zielorientiert, kreativ und immer bereit für neue Herausforderungen.",
+        ausbildung: [{
+            abschluss: "M.SC",
+            in: "Computer Science",
+            wo: "Universität Stuttgart"
+        }, {
+            abschluss: "B.SC",
+            in: "Computer Science",
+            wo: "Universität Stuttgart"
+        }],
+        berufserfahrung: [{
+            wo: "Amazon",
+            als: "It-Support",
+            beschreibung: "string",
+            von: "03.04.09",
+            bis: "03.04.015",
+        }, {
+            wo: "Microsoft",
+            als: "lead Software engineer",
+            beschreibung: "code techi",
+            von: "03.04.09",
+            bis: "03.04.15",
+        }],
+        kenntnisse: [
+            'TypeScript',
+            'Next.js',
+            'GraphQL',
+            'MongoDB',
+            'Docker',
+            'Kubernetes',
+        ],
+        sprachen: ["Deutsch", "Englisch", "Französisch"],
     },
     settings: {
       isSuspended: false,

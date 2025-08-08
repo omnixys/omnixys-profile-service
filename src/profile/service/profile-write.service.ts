@@ -4,18 +4,24 @@ import { Model } from 'mongoose';
 import { Profile, ProfileDocument } from '../model/entity/profile.entity.js';
 import { UpdateProfileInput } from '../model/dto/update-profile.input.js';
 import { ProfileReadService } from './profile-read.service.js';
+import { LoggerService } from '../../observability/logger.service.js';
+import { LoggerPlus } from '../../observability/logger-plus.js';
+import { mergeAndMarkModified } from '../utils/utils.js';
 
 @Injectable()
 export class ProfileWriteService {
   readonly #profileModel: Model<ProfileDocument>;
-  readonly #profileReadService: ProfileReadService;
+    readonly #profileReadService: ProfileReadService;
+      readonly #logger: LoggerPlus;
 
   constructor(
     @InjectModel(Profile.name) profileModel: Model<ProfileDocument>,
-    profileReadService: ProfileReadService,
+      profileReadService: ProfileReadService,
+     loggerService: LoggerService,
   ) {
     this.#profileModel = profileModel;
-    this.#profileReadService = profileReadService;
+      this.#profileReadService = profileReadService;
+      this.#logger = loggerService.getLogger(ProfileWriteService.name);
   }
 
   async create(profileData: Partial<Profile>): Promise<Profile> {
@@ -23,21 +29,33 @@ export class ProfileWriteService {
     return created.save();
   }
 
-  async update(username: string, input: UpdateProfileInput): Promise<Profile> {
-    const profile = await this.#profileReadService.findByUsername(username);
 
-    if (!profile) {
-      throw new NotFoundException(
-        `Profil mit Benutzername '${username}' nicht gefunden`,
-      );
+
+    async update(username: string, input: UpdateProfileInput): Promise<Profile> {
+        const profile = await this.#profileReadService.findByUsername(username);
+
+        if (!profile) {
+            throw new NotFoundException(
+                `Profil mit Benutzername '${username}' nicht gefunden`,
+            );
+        }
+
+        // Nur definierte Felder übernehmen
+        const cleanedInput = Object.fromEntries(
+            Object.entries(input).filter(([_, value]) => value !== undefined),
+        );
+
+        // Deep-Merge mit nur gesetzten Feldern
+        const updated = mergeAndMarkModified(profile, cleanedInput, ['info', 'settings', 'settings.blockedUsers']);
+        this.#logger.debug('')
+
+        return updated.save();
     }
 
-    // Eingabewerte auf Dokument anwenden
-    Object.assign(profile, input);
 
-    // Dokument speichern
-    return profile.save();
-  }
+
+
+
   async deleteProfile(id: string): Promise<boolean> {
     const result = await this.#profileModel.findByIdAndDelete(id);
     return !!result;
